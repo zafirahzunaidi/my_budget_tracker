@@ -444,6 +444,22 @@ html, body {
 .scenario-interval input {width:5em}
 .frequency-picker {flex:0 1 150px}
 @media(max-width:460px){.frequency-picker{flex:1 1 130px}.scenario-amount input{width:6em}}
+
+/* Keep the Quick Add form comfortable in a phone's portrait viewport. */
+@media (max-width: 599px) and (orientation: portrait) {
+  #page-add {
+    --field-gap: clamp(8px, 1.4dvh, 12px);
+    --label-gap: 4px;
+    padding-block: 10px;
+  }
+  #page-add > .card { padding-block: 12px; margin-bottom: 0; }
+  #page-add .amount-wrap .form-input { padding-block: 5px; line-height: 1.25; }
+  #page-add .type-btn { padding-block: 7px; }
+  #page-add .type-toggle { padding-block: 2px; }
+  #page-add .chip-grid { row-gap: 5px; }
+  #page-add #date-input, #page-add #item-input { height: 44px; padding-block: 8px; }
+  #page-add #save-status:empty { display: none; }
+}
 </style>
 </head>
 <body data-options="<?= options ?>" data-today="<?= today ?>" data-runtime="<?= isAppsScript ?>">
@@ -731,7 +747,7 @@ html, body {
     <div class="modal-title">Edit Profile</div>
     <div class="form-row">
       <label class="form-label">Your name</label>
-      <input class="form-input" id="profile-name-input" type="text" maxlength="40" placeholder="e.g. Alex">
+      <input class="form-input" id="profile-name-input" type="text" maxlength="40" placeholder="e.g. Zafirah">
     </div>
     <div class="form-row">
       <label class="form-label">Avatar emoji</label>
@@ -892,7 +908,7 @@ if (!IS_APPS_SCRIPT) {
   let _settings   = {
     cycleStart:'2026-11-01', payday:'2026-12-01', cycleBudget:'1500',
     'monthlyBudget_2026-11': '1800',
-    profileName: 'Alex',
+    profileName: 'Zafirah',
     profileAvatar: '🌸'
   };
 
@@ -1450,10 +1466,21 @@ function renderPayday(){
   if(todayD>=pday){ el.innerHTML=`<div class="insight-label">🎉 Payday is here! Set your next cycle below.</div>`; return; }
   if(todayD<start){ el.innerHTML=`<div class="insight-label">Your next cycle starts ${fmtDate(cycleStart)}.</div>`; return; }
   const cycleEnd=new Date(pday); cycleEnd.setDate(cycleEnd.getDate()-1);
-  const spent=App.transactions.filter(t=>{ if(t.type!=='Expense') return false; const d=new Date(t.date+'T00:00:00'); return d>=start&&d<=todayD; }).reduce((s,t)=>s+t.amount,0);
-  const remaining=budget-spent;
+  const expenses=App.transactions.filter(t=>t.type==='Expense' && t.date>=cycleStart && t.date<payday);
+  let spentCents=0, upcomingCents=0;
+  for(const entry of expenses){
+    const cents=Math.round(Number(entry.amount)*100);
+    if(entry.date<=TODAY) spentCents+=cents;
+    else upcomingCents+=cents;
+  }
+  const remaining=(Math.round(budget*100)-spentCents-upcomingCents)/100;
   const daysLeft=Math.round((cycleEnd-todayD)/86400000)+1;
-  if(remaining<=0){ el.innerHTML=`<div class="insight-figure insight-warn">Over budget by ${fmt(Math.abs(remaining))}</div><div class="insight-label">${daysLeft} day${daysLeft!==1?'s':''} remain until payday (${fmtDate(payday)}).</div>`; return; }
+  const breakdown=`<div class="insight-sub">Pay cycle from ${fmtDate(cycleStart)} until payday on ${fmtDate(payday)} · ${fmt(budget)} budget<br>${fmt(spentCents/100)} spent through today · ${fmt(upcomingCents/100)} reserved for upcoming logged expenses</div>`;
+  if(remaining<=0){
+    const status=remaining<0 ? `Over budget by ${fmt(-remaining)}` : 'Cycle budget fully allocated';
+    el.innerHTML=`<div class="insight-figure insight-warn">${status}</div><div class="insight-label">${daysLeft} days until payday.</div>${breakdown}`;
+    return;
+  }
   const daily=remaining/daysLeft;
   let hist='';
   const cwSpend=[];
@@ -1463,7 +1490,7 @@ function renderPayday(){
     if(dt>0) cwSpend.push(dt);
   }
   if(cwSpend.length>=3){ const avg=cwSpend.reduce((a,b)=>a+b,0)/cwSpend.length; hist=`<div class="insight-sub">Average on days with logged spending: ${fmt(avg)} (${cwSpend.length} days)</div>`; }
-  el.innerHTML=`<div class="insight-figure">${fmt(remaining)} left · ${daysLeft} day${daysLeft!==1?'s':''}</div><div class="insight-label">That gives you <strong>${fmt(daily)} a day</strong> until payday (${fmtDate(payday)}).</div>${hist}`;
+  el.innerHTML=`<div class="insight-figure">${fmt(remaining)} left · ${daysLeft} day${daysLeft!==1?'s':''}</div><div class="insight-label">That gives you <strong>${fmt(daily)} a day</strong> until payday (${fmtDate(payday)}).</div>${breakdown}${hist}`;
 }
 
 document.getElementById('btn-payday-settings').addEventListener('click',openPayModal);
