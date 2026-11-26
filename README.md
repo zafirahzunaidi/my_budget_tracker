@@ -1,6 +1,6 @@
-<h1 align="center">My Budget 💜</h1>
+<h1 align="left">My Budget 💜</h1>
 
-<p align="center">
+<p align="left">
   A mobile-first budget tracker for logging payments, planning next month’s income,<br>
   and working out how much you can spend before payday.
 </p>
