@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/images/my-budget-mobile.png" width="85%" alt="Three phone mockups showing Quick Add, the payday and spending overview, and monthly savings goals">
+  <img src="docs/images/my-budget-mobile.png" width="80%" alt="Three phone mockups showing Quick Add, the payday and spending overview, and monthly savings goals">
   <br>
   <sub>Quick Add · Overview · My Plan</sub>
 </p>
@@ -62,7 +62,7 @@ The two monthly allocations add back up to the original RM500 receipt.
 A **RM3.87 coffee** feels small on its own. Buying one every day for 31 days comes to **RM119.97**, which puts me **RM59.97 over** a RM60 coffee budget.
 
 <p align="center">
-  <img src="docs/images/coffee-scenario.png" width="70%" alt="What If scenario showing that 31 coffees at RM3.87 each exceed a RM60 monthly limit by RM59.97">
+  <img src="docs/images/coffee-scenario.png" width="60%" alt="What If scenario showing that 31 coffees at RM3.87 each exceed a RM60 monthly limit by RM59.97">
   <br>
   <sub>An early version of the daily coffee scenario.</sub>
 </p>
