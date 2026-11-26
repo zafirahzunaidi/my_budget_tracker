@@ -2,7 +2,9 @@
 
 A mobile-first budget tracker built with Google Sheets and Apps Script. Log a payment on your phone, decide which month your income should fund, and see how much you can spend before payday. Each person runs their own copy in their own Google account.
 
-![My Budget mobile mockup showing transaction entry, spending by category, and monthly savings and spending targets](docs/images/my-budget-mobile.png)
+<p align="center">
+  <img src="docs/images/my-budget-mobile.png" width="70%" alt="My Budget mobile mockup showing Quick Add, Overview and My Plan">
+</p>
 
 ## Why I built it
 
@@ -20,7 +22,9 @@ I also wanted a tracker I would actually use after paying for lunch. Quick entry
 | My Plan | Set fixed-RM or percentage targets, then explore a purchase every day, week, fortnight or custom number of days. |
 | Me | Customise categories, savings pots and accounts, including their display order. |
 
-![Budget scenario for a RM3.87 coffee against a RM60 monthly target](docs/images/coffee-scenario.png)
+<p align="center">
+  <img src="docs/images/coffee-scenario.png" width="70%" alt="Coffee spending scenario comparing RM3.87 per day with a RM60 monthly limit">
+</p>
 
 *An early daily scenario from the app. RM3.87 × 31 purchases comes to RM119.97, or RM59.97 over a RM60 limit. The current version also supports other purchase frequencies.*
 
@@ -43,7 +47,9 @@ The interface calls Apps Script, which reads and writes three tabs in the owner�
 | Settings | Key/value pairs for pay-cycle dates, budgets and profile preferences. |
 | Plans | One row per monthly target, including its ID, type, fixed amount or percentage and linked categories. |
 
-![Illustrative Google Sheets transaction structure using two fictional entries](docs/images/storage-example.png)
+<p align="center">
+  <img src="docs/images/storage-example.png" width="70%" alt="Google Sheets transaction structure with two fictional entries">
+</p>
 
 The one-time setup stores the owner’s spreadsheet ID in their Apps Script project properties under `BOOK`. The public source contains the setup logic and fictional local-preview records. The live transaction history stays in the spreadsheet.
 
