@@ -2,6 +2,8 @@
 
 A mobile-first budget tracker built with Google Sheets and Apps Script. Log a payment on your phone, decide which month your income should fund, and see how much you can spend before payday. Each person runs their own copy in their own Google account.
 
+![My Budget mobile mockup showing transaction entry, spending by category, and monthly savings and spending targets](docs/images/my-budget-mobile.png)
+
 ## Why I built it
 
 As a computer science student studying data analytics, I wanted to answer a question my spreadsheet kept getting wrong for me: **if my allowance arrives in November but pays for December, which month does it belong to?** I built My Budget to keep both answers. The calendar records when money moved. The monthly plan and overview show when I intend to use it.
