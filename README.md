@@ -14,7 +14,6 @@
 <p align="center">
   <img src="docs/images/my-budget-mobile.png" width="80%" alt="Three phone mockups showing Quick Add, the payday and spending overview, and monthly savings goals">
   <br>
-  <sub>Quick Add · Overview · My Plan</sub>
 </p>
 
 ## 💭 Why I built it
